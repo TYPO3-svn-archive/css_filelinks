@@ -154,6 +154,11 @@
 				};
 				$return_fileSize['size']=round($fileSize,$fileSizeRound);
 				$return_fileSize['sizeformat']=$fileSizeFormatOut;
+				
+				/* make the decimal point */
+				if($conf['decimalPoint']!=''){
+					$return_fileSize=str_replace('.',$conf['decimalPoint'],$return_fileSize);
+				}
 				return $return_fileSize;
 			};
 		}

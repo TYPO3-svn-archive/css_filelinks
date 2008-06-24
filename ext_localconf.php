@@ -77,6 +77,7 @@ override.filelist.field=select_key';};
 					format=auto
 					desc=b|kb|mb
 					round=2
+					decimalPoint=.
 				}
 				hideNotProcessedMarkers=1
 			}
