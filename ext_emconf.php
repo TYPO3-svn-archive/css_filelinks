@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "css_filelinks"
 #
-# Auto generated 04-03-2008 11:10
+# Auto generated 16-05-2009 14:56
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'CSS based, XHTML and accessibility compliant implementation of the "FILELINKS" cObject.',
 	'category' => 'fe',
 	'shy' => 0,
-	'version' => '0.2.14',
+	'version' => '0.2.16',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -42,7 +42,9 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"4ee4";s:10:"README.txt";s:4:"ee2d";s:25:"class.tx_cssfilelinks.php";s:4:"dd7d";s:21:"ext_conf_template.txt";s:4:"5313";s:12:"ext_icon.gif";s:4:"e533";s:12:"ext_icon.psd";s:4:"1422";s:17:"ext_localconf.php";s:4:"998b";s:14:"doc/manual.sxw";s:4:"ac2a";s:19:"doc/wizard_form.dat";s:4:"8064";s:20:"doc/wizard_form.html";s:4:"6ac0";}',
+	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"d83b";s:10:"README.txt";s:4:"9fa9";s:25:"class.tx_cssfilelinks.php";s:4:"4c0b";s:21:"ext_conf_template.txt";s:4:"5313";s:12:"ext_icon.gif";s:4:"e533";s:12:"ext_icon.psd";s:4:"1422";s:17:"ext_localconf.php";s:4:"8695";s:14:"doc/manual.sxw";s:4:"dafb";s:19:"doc/wizard_form.dat";s:4:"8064";s:20:"doc/wizard_form.html";s:4:"17dc";}',
+	'suggests' => array(
+	),
 );
 
 ?>

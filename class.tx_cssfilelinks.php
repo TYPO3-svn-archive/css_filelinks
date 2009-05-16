@@ -250,12 +250,13 @@
 	 * return url from file
 	 *
 	 * @param	string		$url: file url
-	 * @param	array		$conf typoscript configuration
+	 * @param	array		$conf: typoscript configuration
+	 * @param	array		$record: record with all informations about the file 
 	 * @return	string		url
 	 */
-	function getFileUrl($url,$conf){
+	function getFileUrl($url,$conf,$record){
 		if ($hookObj = &$this->hookRequest('getFileUrl'))	{
-				return $hookObj->getFileUrl($url,$conf);
+				return $hookObj->getFileUrl($url,$conf,$record);
 		} else {
 			$output = '';
 			$initP = '?id='.$GLOBALS['TSFE']->id.'&type='.$GLOBALS['TSFE']->type;
@@ -493,7 +494,7 @@
 						//$replace['icon']=$this->getIcon($replace['fileext'],$conf['linkProc.']);
 						$replace['icon']=$this->getIcon($replace['fileext'],$conf['linkProc.'],$file['url']);
 					}
-					$replace['url']=$this->getFileUrl($file['url'],$conf['linkProc.']);
+					$replace['url']=$this->getFileUrl($file['url'],$conf['linkProc.'],$file);
 					$replace['title']=trim($file['title']);
 					if($conf['title.']['trimExt']){
 						$replace['title']=substr($replace['title'],0,-(strlen($replace['fileext'])+1));

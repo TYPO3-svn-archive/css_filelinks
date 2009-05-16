@@ -1,3 +1,7 @@
+	0.2.16	- New parameter added to hook "getFileUrl"(due to the new dam_filelinks functionality linkProc.jumpurl.damSecure).
+
+	0.2.15	- layout.decimalPoint added
+
 	0.2.14	- Bug repaired by getIcon hookfunction
 
 	0.2.13	- Bug repaired by(linkProc.iconCObject.makeThumbs=1)(thx. to Robert Lockerbie for patch)
