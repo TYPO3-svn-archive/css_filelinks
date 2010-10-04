@@ -40,14 +40,14 @@
  *   70:     function fetchFileList ($content, $conf)
  *   84:     function getAdditionalClass($confAdditionalClass)
  *  111:     function FileSizeFormat($fileSize,$conf)
- *  171:     function fillFileMarkers($fileFileMarkers,$fileLayout,$file,$fileCount,$fileext)
- *  215:     function fillGlobalMarkers($fileGlobalMarkers,$globalLayout,$fileCount)
- *  251:     function getFileUrl($url,$conf)
- *  273:     function getFilesForCssUploads($conf)
- *  341:     function getIcon($fileExt,$conf,$theFile)
- *  408:     function renderFileLinks($content,$conf)
- *  534:     function &hookRequest($functionName)
- *  554:     function hookRequestMore($functionName)
+ *  176:     function fillFileMarkers($fileFileMarkers,$fileLayout,$file,$fileCount,$fileext)
+ *  220:     function fillGlobalMarkers($fileGlobalMarkers,$globalLayout,$fileCount)
+ *  257:     function getFileUrl($url,$conf,$record)
+ *  279:     function getFilesForCssUploads($conf)
+ *  347:     function getIcon($fileExt,$conf,$theFile)
+ *  414:     function renderFileLinks($content,$conf)
+ *  553:     function &hookRequest($functionName)
+ *  573:     function hookRequestMore($functionName)
  *
  * TOTAL FUNCTIONS: 11
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -154,7 +154,7 @@
 				};
 				$return_fileSize['size']=round($fileSize,$fileSizeRound);
 				$return_fileSize['sizeformat']=$fileSizeFormatOut;
-				
+
 				/* make the decimal point */
 				if($conf['decimalPoint']!=''){
 					$return_fileSize=str_replace('.',$conf['decimalPoint'],$return_fileSize);
@@ -251,7 +251,7 @@
 	 *
 	 * @param	string		$url: file url
 	 * @param	array		$conf: typoscript configuration
-	 * @param	array		$record: record with all informations about the file 
+	 * @param	array		$record: record with all informations about the file
 	 * @return	string		url
 	 */
 	function getFileUrl($url,$conf,$record){
@@ -307,7 +307,7 @@
 			$descriptionField = $this->cObj->stdWrap($conf['description'],$conf['description.']);
 			$descriptionIfEmpty=$this->cObj->stdWrap($conf['description_ifElementEmpty'],$conf['description_ifElementEmpty.']);
 			if($descriptionField!=''){
-				$descriptionArray=t3lib_div::trimExplode(chr(10),$descriptionField);
+				$descriptionArray=t3lib_div::trimExplode(chr(10),htmlspecialchars($descriptionField));
 			}else{
 				$descriptionArray=array();
 			};
@@ -455,17 +455,30 @@
 				$odd=true;
 				foreach($files_all as $file){
 					$fileLayouTemp=$fileLayout;
-					$fileLayouTemp=str_replace('###DESCRIPTION###',$file['description'],$fileLayouTemp);// aby som mohol zamenit description
 					$replace['target']=$conf['linkProc.']['target']?' target="'.$conf['linkProc.']['target'].'"':'';
 					/* class begin */
 					$fileinfo = t3lib_div::split_fileref($file['filename']);
 					/* fileExt begin */
-						$fileExt=trim($fileinfo['fileext']);
-						if(t3lib_div::testInt(substr($fileExt,0,1))&&$conf['classes.']['ext.']['prefixIfFirstNumber']!=''){
-							$fileExt=$conf['classes.']['ext.']['prefixIfFirstNumber'].$fileExt;
-						};
-						$replace['fileext']=$fileExt;
+					$fileExt=trim($fileinfo['fileext']);
+					if(t3lib_div::testInt(substr($fileExt,0,1))&&$conf['classes.']['ext.']['prefixIfFirstNumber']!=''){
+						$fileExt=$conf['classes.']['ext.']['prefixIfFirstNumber'].$fileExt;
+					};
+					$replace['fileext']=$fileExt;
 					/* fileExt end */
+					/* fileExt config begin */
+                    $extFileLayout=$this->cObj->stdWrap($conf['layout.']['filetype.'][strtolower($fileExt)],$conf['layout.']['filetype.'][strtolower($fileExt).'.']);
+                    if($extFileLayout!=''){
+                        if(strpos($extFileLayout,'###ICON###')!==false){$useIcon=true;}else{$useIcon=false;}
+                        if($useIcon){$search['icon']='###ICON###';}
+                        if(intval($this->cObj->data['filelink_size'])>0){
+                            $extFileLayout=str_replace('###FILESIZE###',$fileSizeLayout,$extFileLayout);
+                        }else{
+                            $extFileLayout=str_replace('###FILESIZE###','',$extFileLayout);
+                        };
+                        $fileLayouTemp=$extFileLayout;
+                    }
+                    /* fileExt config end */
+                    $fileLayouTemp=str_replace('###DESCRIPTION###',$file['description'],$fileLayouTemp);// aby som mohol zamenit description
 					/* additionalClass begin */
 						$replace['additionalclass']=trim($additionalClass[trim($fileinfo['fileext'])]);
 					/* additional class end */
